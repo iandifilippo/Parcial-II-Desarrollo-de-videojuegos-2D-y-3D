@@ -16,7 +16,7 @@ reflected_light_source = 2
 environment = SubResource("Environment_mundo")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=723590858]
-transform = Transform3D(0.866, 0, 0.5, 0.383, 0.6428, -0.6634, -0.3214, 0.766, 0.5567, 0, 5, 0)
+transform = Transform3D(-0.6058627, -0.6181653, 0.50081253, 0.7277093, -0.17630376, 0.6628313, -0.3214092, 0.76602006, 0.5566953, 0, 5, 0)
 shadow_enabled = true
 
 [node name="MarcaAparicion" type="Marker3D" parent="." unique_id=1012548281 groups=["player"]]
