@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://dr4ghyniaty7a"]
 
-[ext_resource type="Script" path="res://Assets/enemigo_ia.gd" id="1_ene"]
+[ext_resource type="Script" uid="uid://c06o4th7uvep5" path="res://Assets/enemigo_ia.gd" id="1_ene"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ene"]
 radius = 0.35
@@ -22,30 +22,28 @@ initial_velocity_min = 1.5
 initial_velocity_max = 3.0
 gravity = Vector3(0, -6, 0)
 scale_min = 0.6
-scale_max = 1.0
-color = Color(1, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_impacto"]
 radius = 0.06
 height = 0.12
 
-[node name="Enemigo" type="CharacterBody3D"]
+[node name="Enemigo" type="CharacterBody3D" unique_id=639411911]
 script = ExtResource("1_ene")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=714706644]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 mesh = SubResource("CapsuleMesh_ene")
 surface_material_override/0 = SubResource("StandardMaterial3D_rojo")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=298868694]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
 shape = SubResource("CapsuleShape3D_ene")
 
-[node name="Vision" type="RayCast3D" parent="."]
+[node name="Vision" type="RayCast3D" parent="." unique_id=902144177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 target_position = Vector3(0, 0, -8)
 
-[node name="ParticulasImpacto" type="GPUParticles3D" parent="."]
+[node name="ParticulasImpacto" type="GPUParticles3D" parent="." unique_id=1210019703]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 emitting = false
 amount = 16

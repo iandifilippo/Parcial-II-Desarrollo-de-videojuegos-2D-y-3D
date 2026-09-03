@@ -17,6 +17,7 @@ var estado_actual: Estado = Estado.PATRULLAR
 var indice_punto: int = 0
 var jugador: Node3D = null
 var puntos: Array[Vector3] = []
+var material_flash: StandardMaterial3D = null
 
 @onready var vision: RayCast3D = $Vision
 @onready var mesh: MeshInstance3D = $MeshInstance3D
@@ -27,7 +28,11 @@ func _ready() -> void:
 	jugador = get_tree().get_first_node_in_group("player")
 	for desplazamiento in ruta:
 		puntos.append(global_position + desplazamiento)
-		print("[DEBUG] jugador = ", jugador, " nombre = ", jugador.name if jugador else "NULL")
+
+	var mat := mesh.get_active_material(0)
+	if mat is StandardMaterial3D:
+		material_flash = mat.duplicate()
+		mesh.set_surface_override_material(0, material_flash)
 
 
 func _physics_process(delta: float) -> void:
@@ -56,35 +61,24 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-## TAREA 4 (20%): completar el árbol de decisión.
-##
-## Debe devolver:
-##   - Estado.HUIR      si la vida es <= vida_huida Y el jugador está a
-##                       distancia <= rango_vision.
-##   - Estado.ATACAR     si distancia <= rango_ataque Y lo_veo es true.
-##   - Estado.PERSEGUIR   si distancia <= rango_vision Y lo_veo es true.
-##   - Estado.PATRULLAR   en cualquier otro caso.
-##
-## OJO: el ORDEN de los if importa (visto en la Sesión 10) — si se revisa
-## PERSEGUIR antes que ATACAR, el enemigo nunca ataca, porque estando cerca
-## la condición de perseguir también se cumple. Piensa cuál condición debe
-## revisarse PRIMERO para que las demás no se la "roben".
 func _decidir_estado(distancia: float, lo_veo: bool) -> Estado:
-	# TODO: reemplazar esta línea por la lógica completa descrita arriba.
+	if vida <= vida_huida and distancia <= rango_vision:
+		return Estado.HUIR
+
+	if distancia <= rango_ataque and lo_veo:
+		return Estado.ATACAR
+
+	if distancia <= rango_vision and lo_veo:
+		return Estado.PERSEGUIR
+
 	return Estado.PATRULLAR
 
 
 ## Le hace daño al enemigo. Devuelve la vida restante.
-##
-## TAREA 6 (10%): a esta función le falta la parte VISUAL del golpe. Ya
-## reduce la vida correctamente, pero no se nota en pantalla. Agrega, usando
-## las funciones de Efectos (Sesión 11, ya completas en efectos.gd):
-##   1. Un parpadeo blanco del material del enemigo (Efectos.flash).
-##   2. Una ráfaga de las partículas de impacto (Efectos.particulas), que
-##      ya están armadas como el nodo ParticulasImpacto de esta escena.
 func recibir_dano(cantidad: float) -> float:
 	vida = max(vida - cantidad, 0.0)
-	# TODO: agregar aquí el flash y las partículas.
+	Efectos.flash(material_flash, "albedo_color", Color.WHITE, 0.08, self)
+	Efectos.particulas(particulas_impacto)
 	return vida
 
 
