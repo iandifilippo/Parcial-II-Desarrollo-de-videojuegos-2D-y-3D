@@ -1,0 +1,6 @@
+Escribe aquí las tres medidas que imprime la consola mientras juegas.
+Cópialas tal cual aparecen, con sus decimales.
+
+MEDIDA 1  altura_max_salto           = 
+MEDIDA 2  tiempo_hasta_velocidad_max = 
+MEDIDA 3  primer_cambio              = 

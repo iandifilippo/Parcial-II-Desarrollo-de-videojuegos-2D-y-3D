@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://Assets/jugador.gd" id="1_jug"]
+[ext_resource type="Script" path="res://Assets/camara_orbital.gd" id="2_cam"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jug"]
+radius = 0.35
+height = 1.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jug"]
+albedo_color = Color(0.2, 0.45, 0.85, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jug"]
+radius = 0.35
+height = 1.75
+
+[node name="Jugador" type="Node3D"]
+
+[node name="Cuerpo" type="CharacterBody3D" parent="." groups=["player"] node_paths=PackedStringArray("camara")]
+script = ExtResource("1_jug")
+camara = NodePath("Camera3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cuerpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+mesh = SubResource("CapsuleMesh_jug")
+surface_material_override/0 = SubResource("StandardMaterial3D_jug")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cuerpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.875, 0)
+shape = SubResource("CapsuleShape3D_jug")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Cuerpo" node_paths=PackedStringArray("objetivo")]
+transform = Transform3D(1, 0, 0, 0, 0.9397, 0.342, 0, -0.342, 0.9397, 0, 1.4, 0)
+spring_length = 4.0
+margin = 0.2
+script = ExtResource("2_cam")
+objetivo = NodePath("..")
+
+[node name="Camera3D" type="Camera3D" parent="Cuerpo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)

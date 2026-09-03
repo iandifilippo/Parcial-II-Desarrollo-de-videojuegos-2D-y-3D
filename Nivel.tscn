@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c0a5vjiimsh0n"]
+
+[ext_resource type="PackedScene" path="res://Jugador.tscn" id="1_jug"]
+[ext_resource type="PackedScene" path="res://Enemigo.tscn" id="2_ene"]
+[ext_resource type="PackedScene" path="res://Puerta.tscn" id="3_pue"]
+[ext_resource type="PackedScene" path="res://Piso.tscn" id="4_0b6j0"]
+
+[sub_resource type="Environment" id="Environment_mundo"]
+background_mode = 2
+ambient_light_source = 3
+reflected_light_source = 2
+
+[node name="Nivel" type="Node3D" unique_id=128590148]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1421520568]
+environment = SubResource("Environment_mundo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=723590858]
+transform = Transform3D(0.866, 0, 0.5, 0.383, 0.6428, -0.6634, -0.3214, 0.766, 0.5567, 0, 5, 0)
+shadow_enabled = true
+
+[node name="MarcaAparicion" type="Marker3D" parent="." unique_id=1012548281 groups=["player"]]
+
+[node name="Jugador" parent="." unique_id=823251548 instance=ExtResource("1_jug")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Enemigo" parent="." unique_id=1562153261 instance=ExtResource("2_ene")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -5)
+
+[node name="Puerta" parent="." unique_id=1331120408 instance=ExtResource("3_pue")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, 0)
+
+[node name="Piso" parent="." unique_id=2017947238 instance=ExtResource("4_0b6j0")]
