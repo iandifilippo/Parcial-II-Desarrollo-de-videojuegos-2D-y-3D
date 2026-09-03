@@ -7,6 +7,7 @@ var jugador_cerca: bool = false
 
 func _ready() -> void:
 	body_entered.connect(_al_entrar)
+	body_exited.connect(_al_salir)
 
 
 func _al_entrar(_cuerpo: Node3D) -> void:

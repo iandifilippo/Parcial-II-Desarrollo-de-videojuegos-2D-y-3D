@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0a5vjiimsh0n"]
 
-[ext_resource type="PackedScene" path="res://Jugador.tscn" id="1_jug"]
-[ext_resource type="PackedScene" path="res://Enemigo.tscn" id="2_ene"]
+[ext_resource type="PackedScene" uid="uid://dptindt2vvav0" path="res://Jugador.tscn" id="1_jug"]
+[ext_resource type="PackedScene" uid="uid://dr4ghyniaty7a" path="res://Enemigo.tscn" id="2_ene"]
 [ext_resource type="PackedScene" path="res://Puerta.tscn" id="3_pue"]
 [ext_resource type="PackedScene" path="res://Piso.tscn" id="4_0b6j0"]
 

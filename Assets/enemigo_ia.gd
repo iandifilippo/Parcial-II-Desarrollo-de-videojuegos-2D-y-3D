@@ -12,12 +12,16 @@ enum Estado { PATRULLAR, PERSEGUIR, ATACAR, HUIR }
 @export var vida_huida: float = 30.0
 @export var altura_ojos: float = 0.9
 @export var ruta: Array[Vector3] = [Vector3(0, 0, 0), Vector3(6, 0, 0)]
+@export var dano_por_choque: float = 5.0
+@export var enfriamiento_choque: float = 0.5
+@export var radio_contacto: float = 1.2
 
 var estado_actual: Estado = Estado.PATRULLAR
 var indice_punto: int = 0
 var jugador: Node3D = null
 var puntos: Array[Vector3] = []
 var material_flash: StandardMaterial3D = null
+var _tiempo_choque: float = 0.0
 
 @onready var vision: RayCast3D = $Vision
 @onready var mesh: MeshInstance3D = $MeshInstance3D
@@ -60,26 +64,38 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+	_tiempo_choque = max(_tiempo_choque - delta, 0.0)
+	if _tiempo_choque <= 0.0 and _hay_contacto_con_jugador():
+		recibir_dano(dano_por_choque)
+		_tiempo_choque = enfriamiento_choque
+
 
 func _decidir_estado(distancia: float, lo_veo: bool) -> Estado:
 	if vida <= vida_huida and distancia <= rango_vision:
 		return Estado.HUIR
-
 	if distancia <= rango_ataque and lo_veo:
 		return Estado.ATACAR
-
 	if distancia <= rango_vision and lo_veo:
 		return Estado.PERSEGUIR
-
 	return Estado.PATRULLAR
 
 
 ## Le hace daño al enemigo. Devuelve la vida restante.
 func recibir_dano(cantidad: float) -> float:
 	vida = max(vida - cantidad, 0.0)
-	Efectos.flash(material_flash, "albedo_color", Color.WHITE, 0.08, self)
+	Efectos.flash(material_flash, "albedo_color", Color(1, 1, 1), 0.1, self)
 	Efectos.particulas(particulas_impacto)
 	return vida
+
+
+func _hay_contacto_con_jugador() -> bool:
+	if jugador == null:
+		return false
+	for i in get_slide_collision_count():
+		var c = get_slide_collision(i).get_collider()
+		if c == jugador or (c is Node and c.is_in_group("player")):
+			return true
+	return _distancia_plana(global_position, jugador.global_position) <= radio_contacto
 
 
 func _tiene_linea_vision() -> bool:
