@@ -6,5 +6,8 @@ usamos inteligencia artificial para las siguientes cosas:
 	- Cuando el enemigo recibe daño sí pierde vida, pero no se ve ningún efecto. Ya tengo el script efectos.gd con el flash y las partículas, y las partículas ya están puestas en la escena. ¿Me ayudas a agregar lo que falta en recibir_dano() para que cuando 
 	golpeen al enemigo haga el parpadeo y salgan las partículas? 
 	Solo quiero que arregles eso y no cambies lo demás
+	
+	- Me pasó un problema con el repositorio mientras estaba trabajando. PowerShell empezó a darme error con Git y ahora no sé si quedó bien el repositorio. 
+	Me preocupa tocar algo y perder los cambios o los commits que ya tenía. ¿Me ayudas a arreglarlo?
 
 	
