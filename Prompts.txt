@@ -9,5 +9,8 @@ usamos inteligencia artificial para las siguientes cosas:
 	
 	- Me pasó un problema con el repositorio mientras estaba trabajando. PowerShell empezó a darme error con Git y ahora no sé si quedó bien el repositorio. 
 	Me preocupa tocar algo y perder los cambios o los commits que ya tenía. ¿Me ayudas a arreglarlo?
+	
+	
+	tuvimos otro problema con un usuario y subimos commits con otra cuenta que no era.
 
 	
